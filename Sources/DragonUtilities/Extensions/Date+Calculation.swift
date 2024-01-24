@@ -24,4 +24,11 @@ public extension Date {
     func isToday(calendar: Calendar = Calendar.current) -> Bool {
         calendar.isDateInToday(self)
     }
+
+    /// Checks if the date is before today, so yesterday or older
+    /// - Parameter calendar: Used calendar, default is current
+    /// - Returns: True if the given date is befor todays date, false otherwise
+    func isBeforeToday(calendar: Calendar = Calendar.current) -> Bool {
+        self < calendar.startOfDay(for: .now)
+    }
 }

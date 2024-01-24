@@ -128,4 +128,19 @@ final class Date_CalculationsTests: XCTestCase {
         let date = Date.now.addingTimeInterval(86400)
         XCTAssertFalse(date.isToday())
     }
+
+    func test_isBeforeToday_with_today() {
+        let date: Date = Date.now
+        XCTAssertFalse(date.isBeforeToday())
+    }
+
+    func test_isBeforeToday_with_tomorrow() {
+        let date: Date = Date.now.addingTimeInterval(86400)
+        XCTAssertFalse(date.isBeforeToday())
+    }
+
+    func test_isBeforeToday_with_yesterday() {
+        let date = Date.now.addingTimeInterval(-86400)
+        XCTAssertTrue(date.isBeforeToday())
+    }
 }
