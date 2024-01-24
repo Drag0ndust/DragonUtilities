@@ -1,12 +1,12 @@
 //
 //  Date+CalculationsTests.swift
-//  
+//
 //
 //  Created by Drag0ndust on 11.12.23.
 //
 
-import XCTest
 import DragonUtilities
+import XCTest
 
 final class Date_CalculationsTests: XCTestCase {
     func test_components_with_default_calendar() {
@@ -53,7 +53,22 @@ final class Date_CalculationsTests: XCTestCase {
     func test_components_with_default_calendar_and_all_components() {
         // Given
         let date = Date()
-        let components: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .weekday, .weekdayOrdinal, .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear, .isLeapMonth]
+        let components: Set<Calendar.Component> = [
+            .era,
+            .year,
+            .month,
+            .day,
+            .hour,
+            .minute,
+            .second,
+            .weekday,
+            .weekdayOrdinal,
+            .quarter,
+            .weekOfMonth,
+            .weekOfYear,
+            .yearForWeekOfYear,
+            .isLeapMonth,
+        ]
 
         // When
         let result = date.components(components)
@@ -97,5 +112,20 @@ final class Date_CalculationsTests: XCTestCase {
         XCTAssertNil(result.weekOfMonth)
         XCTAssertNil(result.weekOfYear)
         XCTAssertNil(result.yearForWeekOfYear)
+    }
+
+    func test_isToday_with_today() {
+        let date: Date = Date.now
+        XCTAssertTrue(date.isToday())
+    }
+
+    func test_isToday__with_yesterdays_date() {
+        let date = Date.now.addingTimeInterval(-86400)
+        XCTAssertFalse(date.isToday())
+    }
+
+    func test_isToday_with_tomorrows_date() {
+        let date = Date.now.addingTimeInterval(86400)
+        XCTAssertFalse(date.isToday())
     }
 }
