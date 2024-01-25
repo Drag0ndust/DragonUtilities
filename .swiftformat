@@ -6,7 +6,7 @@
 --indent 4
 --indentcase true
 --self remove
---selfrequired
+--selfrequired 
 --trimwhitespace always
 --xcodeindentation disabled
 

@@ -9,13 +9,16 @@ let package = Package(
     products: [
         .library(
             name: "DragonUtilities",
-            targets: ["DragonUtilities"]),
+            targets: ["DragonUtilities"]
+        ),
     ],
     targets: [
         .target(
-            name: "DragonUtilities"),
+            name: "DragonUtilities"
+        ),
         .testTarget(
             name: "DragonUtilitiesTests",
-            dependencies: ["DragonUtilities"]),
+            dependencies: ["DragonUtilities"]
+        ),
     ]
 )
