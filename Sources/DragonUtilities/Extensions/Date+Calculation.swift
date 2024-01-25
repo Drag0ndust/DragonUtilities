@@ -18,6 +18,18 @@ public extension Date {
         calendar.dateComponents(dateComponents, from: self)
     }
 
+    /// Adds a specified value to a date component and returns the resulting date.
+    /// - Parameters:
+    ///   - value: The value to add to the specified date component.
+    ///   - component: The date component to which the value will be added.
+    ///   - calendar: The calendar to use for date calculations. Defaults to the current calendar.
+    /// - Returns: A new `Date` object resulting from adding the specified value to the specified date component, or nil
+    /// if the calculation fails.
+    func add(_ value: Int, toComponent component: Calendar.Component,
+             with calendar: Calendar = Calendar.current) -> Date? {
+        calendar.date(byAdding: component, value: value, to: self)
+    }
+
     /// Checks if the current date is today.
     /// - Parameters:
     ///   - calendar: The calendar to use for date calculations. Defaults to the current calendar.
