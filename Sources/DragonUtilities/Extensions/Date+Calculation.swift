@@ -8,27 +8,40 @@
 import Foundation
 
 public extension Date {
-    /// Convenience method to get date components from the date
+    /// Extracts specified components from the date.
     /// - Parameters:
-    ///   - dateComponents: Set of components, which should be retrieved
-    ///   - calendar: Calendar used to get the components
-    /// - Returns: The specified date components
+    ///   - dateComponents: A set of components to extract from the date.
+    ///   - calendar: The calendar to use for date calculations. Defaults to the current calendar.
+    /// - Returns: A `DateComponents` object containing the specified components extracted from the date.
     func components(_ dateComponents: Set<Calendar.Component>,
                     calendar: Calendar = Calendar.current) -> DateComponents {
         calendar.dateComponents(dateComponents, from: self)
     }
 
-    /// Checks if the date is from the current day
-    /// - Parameter calendar: Used calendar, default is current
-    /// - Returns: True if date is today, false otherwise
+    /// Checks if the current date is today.
+    /// - Parameters:
+    ///   - calendar: The calendar to use for date calculations. Defaults to the current calendar.
+    /// - Returns: A boolean value indicating whether the current date is today.
     func isToday(calendar: Calendar = Calendar.current) -> Bool {
         calendar.isDateInToday(self)
     }
 
-    /// Checks if the date is before today, so yesterday or older
-    /// - Parameter calendar: Used calendar, default is current
-    /// - Returns: True if the given date is befor todays date, false otherwise
+    /// Checks if the current date is before today.
+    /// - Parameters:
+    ///   - calendar: The calendar to use for date calculations. Defaults to the current calendar.
+    /// - Returns: A boolean value indicating whether the current date is before today.
     func isBeforeToday(calendar: Calendar = Calendar.current) -> Bool {
         self < calendar.startOfDay(for: .now)
+    }
+
+    /// Checks if the current date is after today.
+    /// - Returns: A boolean value indicating whether the current date is after today.
+    func isAfterToday() -> Bool {
+        guard let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) else {
+            return false
+        }
+
+        let endOfToday = Calendar.current.startOfDay(for: startOfTomorrow)
+        return self > endOfToday
     }
 }
