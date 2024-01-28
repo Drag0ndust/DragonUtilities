@@ -39,8 +39,7 @@ jobs:
           path: ./vendor
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./Gemfile.lock') }}
-            ${{ runner.os }}-build-${{ env.cache-name }}
+            ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Cache Homebrew Packages
         id: cache-homebrew
@@ -51,8 +50,7 @@ jobs:
           path: /usr/local/opt/
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./Brewfile.lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./Brewfile.lock.json') }}
-            ${{ runner.os }}-build-${{ env.cache-name }}
+            ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Xcode
         uses: maxim-lobanov/setup-xcode@v1
