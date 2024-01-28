@@ -57,10 +57,12 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Install Gem Dependencies
+      - if: ${{ steps.cache-ruby.outputs.cache-hit != 'true' }}
+        name: Install Gem Dependencies
         run: bundle install --path vendor/bundle
 
-      - name: Install Homebrew Dependencies/
+      - if: ${{ steps.cache-homebrew.outputs.cache-hit != 'true' }}
+        name: Install Homebrew Dependencies/
         run: brew bundle
 
       - name: Run Unit Tests
