@@ -160,4 +160,87 @@ final class Date_CalculationsTests: XCTestCase {
         let date: Date = Date.now.addingTimeInterval(86400)
         XCTAssertTrue(date.isAfterToday(), "Date should be after today")
     }
+
+    func testTimeElapsed_SameDate() {
+        let now = Date()
+        let result = now.timeElapsed(to: now)
+
+        XCTAssertEqual(result.years, 0)
+        XCTAssertEqual(result.months, 0)
+        XCTAssertEqual(result.weeks, 0)
+        XCTAssertEqual(result.days, 0)
+    }
+
+    func testTimeElapsed_OneYearLater() {
+        let calendar = Calendar.current
+        let startDate = Date()
+        let endDate = calendar.date(byAdding: .year, value: 1, to: startDate)!
+
+        let result = startDate.timeElapsed(to: endDate)
+
+        XCTAssertEqual(result.years, 1)
+        XCTAssertEqual(result.months, 0)
+        XCTAssertEqual(result.weeks, 0)
+        XCTAssertEqual(result.days, 0)
+    }
+
+    func testTimeElapsed_OneMonthLater() {
+        let calendar = Calendar.current
+        let startDate = Date()
+        let endDate = calendar.date(byAdding: .month, value: 1, to: startDate)!
+
+        let result = startDate.timeElapsed(to: endDate)
+
+        XCTAssertEqual(result.years, 0)
+        XCTAssertEqual(result.months, 1)
+        XCTAssertEqual(result.weeks, 0)
+        XCTAssertEqual(result.days, 0)
+    }
+
+    func testTimeElapsed_TwoWeeksLater() {
+        let calendar = Calendar.current
+        let startDate = Date()
+        let endDate = calendar.date(byAdding: .weekOfMonth, value: 2, to: startDate)!
+
+        let result = startDate.timeElapsed(to: endDate)
+
+        XCTAssertEqual(result.years, 0)
+        XCTAssertEqual(result.months, 0)
+        XCTAssertEqual(result.weeks, 2)
+        XCTAssertEqual(result.days, 0)
+    }
+
+    func testTimeElapsed_FiveDaysLater() {
+        let calendar = Calendar.current
+        let startDate = Date()
+        let endDate = calendar.date(byAdding: .day, value: 5, to: startDate)!
+
+        let result = startDate.timeElapsed(to: endDate)
+
+        XCTAssertEqual(result.years, 0)
+        XCTAssertEqual(result.months, 0)
+        XCTAssertEqual(result.weeks, 0)
+        XCTAssertEqual(result.days, 5)
+    }
+
+    func testTimeElapsed_ComplexScenario() {
+        let calendar = Calendar.current
+        let startDate = Date()
+
+        // Create a date that is 1 year, 2 months, 3 weeks, and 4 days later
+        var components = DateComponents()
+        components.year = 1
+        components.month = 2
+        components.weekOfMonth = 3
+        components.day = 4
+
+        let endDate = calendar.date(byAdding: components, to: startDate)!
+
+        let result = startDate.timeElapsed(to: endDate)
+
+        XCTAssertEqual(result.years, 1)
+        XCTAssertEqual(result.months, 2)
+        XCTAssertEqual(result.weeks, 3)
+        XCTAssertEqual(result.days, 4)
+    }
 }

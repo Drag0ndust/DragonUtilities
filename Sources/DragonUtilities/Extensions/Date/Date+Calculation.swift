@@ -56,4 +56,15 @@ public extension Date {
         let endOfToday = Calendar.current.startOfDay(for: startOfTomorrow)
         return self > endOfToday
     }
+
+    func timeElapsed(to endDate: Date) -> (years: Int, months: Int, weeks: Int, days: Int) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .weekOfMonth, .day], from: self, to: endDate)
+        let years = components.year ?? 0
+        let months = components.month ?? 0
+        let weeks = components.weekOfMonth ?? 0
+        let days = components.day ?? 0
+
+        return (years, months, weeks, days)
+    }
 }
